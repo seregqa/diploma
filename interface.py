@@ -1,4 +1,4 @@
-import Cluster
+from ker.Cluster import Cluster
 import numpy as np
 
 
@@ -30,7 +30,7 @@ h = 0.01
 
 if __name__=="__main__":
 
-    c = Cluster.Cluster(100,2,3,4,5,6,7,8)
+    c = Cluster(100,2,3,4,5,6,7,8)
 
     for t in range(int(Time/h)):
         if (t%10==0):
