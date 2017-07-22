@@ -30,12 +30,12 @@ h = 0.01
 
 if __name__=="__main__":
 
-    foo= Cluster(g0, a,b,c, D0,kT, NTr,h)
+    foo= Cluster(g0, a,b,c, D0,kT, h,NTr)
 
     hist = np.array([])
 
     for t in range(int(Time/h)):
-        np.hstack( list(foo.g) )
+        hist = np.hstack( (hist, np.array(list(foo.g))) )
         if (t%10==0):
             foo.change_coefs()
             foo.traectories()

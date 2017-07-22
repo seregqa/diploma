@@ -170,9 +170,9 @@ class Cluster(_object):
     def ksi(self): return _Cluster.Cluster_ksi(self)
     def change_coefs(self): return _Cluster.Cluster_change_coefs(self)
     def traectories(self): return _Cluster.Cluster_traectories(self)
-    def skachek(self): return _Cluster.Cluster_skachek(self)
+    def leap(self): return _Cluster.Cluster_leap(self)
     def euler(self): return _Cluster.Cluster_euler(self)
-    def evol_dump(self, *args): return _Cluster.Cluster_evol_dump(self, *args)
+    def data_dump(self, *args): return _Cluster.Cluster_data_dump(self, *args)
     def hist(self, *args): return _Cluster.Cluster_hist(self, *args)
     __swig_setmethods__["phi"] = _Cluster.Cluster_phi_set
     __swig_getmethods__["phi"] = _Cluster.Cluster_phi_get

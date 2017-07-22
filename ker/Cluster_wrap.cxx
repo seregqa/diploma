@@ -7935,20 +7935,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Cluster_skachek(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Cluster_leap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Cluster *arg1 = (Cluster *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:Cluster_skachek",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:Cluster_leap",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Cluster, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Cluster_skachek" "', argument " "1"" of type '" "Cluster *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Cluster_leap" "', argument " "1"" of type '" "Cluster *""'"); 
   }
   arg1 = reinterpret_cast< Cluster * >(argp1);
-  (arg1)->skachek();
+  (arg1)->leap();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -7977,7 +7977,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Cluster_evol_dump(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Cluster_data_dump(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Cluster *arg1 = (Cluster *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -8005,38 +8005,38 @@ SWIGINTERN PyObject *_wrap_Cluster_evol_dump(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject * obj4 = 0 ;
   PyObject * obj5 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:Cluster_evol_dump",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:Cluster_data_dump",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Cluster, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Cluster_evol_dump" "', argument " "1"" of type '" "Cluster *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Cluster_data_dump" "', argument " "1"" of type '" "Cluster *""'"); 
   }
   arg1 = reinterpret_cast< Cluster * >(argp1);
   res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Cluster_evol_dump" "', argument " "2"" of type '" "char const *""'");
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Cluster_data_dump" "', argument " "2"" of type '" "char const *""'");
   }
   arg2 = reinterpret_cast< char * >(buf2);
   ecode3 = SWIG_AsVal_double(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Cluster_evol_dump" "', argument " "3"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Cluster_data_dump" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
   ecode4 = SWIG_AsVal_int(obj3, &val4);
   if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Cluster_evol_dump" "', argument " "4"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Cluster_data_dump" "', argument " "4"" of type '" "int""'");
   } 
   arg4 = static_cast< int >(val4);
   ecode5 = SWIG_AsVal_double(obj4, &val5);
   if (!SWIG_IsOK(ecode5)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "Cluster_evol_dump" "', argument " "5"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "Cluster_data_dump" "', argument " "5"" of type '" "double""'");
   } 
   arg5 = static_cast< double >(val5);
   ecode6 = SWIG_AsVal_double(obj5, &val6);
   if (!SWIG_IsOK(ecode6)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "Cluster_evol_dump" "', argument " "6"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "Cluster_data_dump" "', argument " "6"" of type '" "double""'");
   } 
   arg6 = static_cast< double >(val6);
-  (arg1)->evol_dump((char const *)arg2,arg3,arg4,arg5,arg6);
+  (arg1)->data_dump((char const *)arg2,arg3,arg4,arg5,arg6);
   resultobj = SWIG_Py_Void();
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;
@@ -9222,9 +9222,9 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Cluster_ksi", _wrap_Cluster_ksi, METH_VARARGS, NULL},
 	 { (char *)"Cluster_change_coefs", _wrap_Cluster_change_coefs, METH_VARARGS, NULL},
 	 { (char *)"Cluster_traectories", _wrap_Cluster_traectories, METH_VARARGS, NULL},
-	 { (char *)"Cluster_skachek", _wrap_Cluster_skachek, METH_VARARGS, NULL},
+	 { (char *)"Cluster_leap", _wrap_Cluster_leap, METH_VARARGS, NULL},
 	 { (char *)"Cluster_euler", _wrap_Cluster_euler, METH_VARARGS, NULL},
-	 { (char *)"Cluster_evol_dump", _wrap_Cluster_evol_dump, METH_VARARGS, NULL},
+	 { (char *)"Cluster_data_dump", _wrap_Cluster_data_dump, METH_VARARGS, NULL},
 	 { (char *)"Cluster_hist", _wrap_Cluster_hist, METH_VARARGS, NULL},
 	 { (char *)"Cluster_phi_set", _wrap_Cluster_phi_set, METH_VARARGS, NULL},
 	 { (char *)"Cluster_phi_get", _wrap_Cluster_phi_get, METH_VARARGS, NULL},
