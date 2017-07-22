@@ -36,12 +36,12 @@ class Cluster {
 
 		void change_coefs();
 		void traectories();
-		void skachek();
+		void leap();
 
 		// схема эйлера для сравнения устойчивости
 		void euler();
 
-		void evol_dump(const char* name, double t, int bins, double g_min, double g_max);
+		void data_dump(const char* name, double t, int bins, double g_min, double g_max);
 		vector<double> hist(vector<double> g, int bins, double g_min, double g_max);
 
 

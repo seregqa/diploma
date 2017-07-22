@@ -2,13 +2,15 @@
 
 #define _USE_MATH_DEFINES
 
-Cluster::Cluster(double _g0, double _a, double _b, double _c, double _D0, double _kT, double _h, int _NTr)
-				: g0(_g0), a(_a), b(_b), c(_c), D0(_D0), kT(_kT), h(_h), NTr(_NTr)
+Cluster::Cluster(double _g0, double _a, double _b, double _c,
+                 double _D0, double _kT, double _h, int _NTr)
+                : g0(_g0), a(_a), b(_b), c(_c),
+                  D0(_D0), kT(_kT), h(_h), NTr(_NTr)
 {
-	g.push_back (g0);
-	g_i = vector<double> (NTr, g.back());
-	var.push_back (0.0);
-	speed.push_back (0.0);
+    g.push_back (g0);
+    g_i = vector<double> (NTr, g.back());
+    var.push_back (0.0);
+    speed.push_back (0.0);
 
 	phi=dphi=d2phi=D=dD=d2D = 0.0;
 	g_k = 0.0;
@@ -55,7 +57,7 @@ void Cluster::change_coefs() {
 	d2D = f_d2D();
 }
 
-void Cluster::skachek() {
+void Cluster::leap() {
 	g_i.clear();
 	double g_new = 0.0;
 	double Eg = 0.0;
@@ -102,6 +104,40 @@ void Cluster::traectories() {
 }
 
 
+void Cluster::data_dump(const char* name, double t, int bins, double g_min, double g_max) {
+	ofstream file;
+	file.open(name, ios::out|ios::app);
+
+	double g_step = (g_max-g_min)/bins;
+
+	for(int i=0; i<bins; i++) {
+		file << t << " " << g_min + g_step*i << " " << hist(g_i,bins,g_min,g_max)[i] << "\n";
+	}
+	file << "\n";
+
+	file.close();
+}
+
+
+// Data for plot histogram
+vector<double> Cluster::hist(vector<double> gi, int bins, double g_min, double g_max) {
+	double g_step = (g_max-g_min)/bins;
+
+	vector<double> hist_arr (bins,0);
+
+	for(int k=0; k<bins; k++) {
+		for(int i=0; i<NTr; i++) {
+			if ( (gi[i]>(g_min + g_step*k)) && (gi[i]<=(g_min + g_step*(k+1))) )
+				hist_arr[k]+=1.0/gi.size();
+		}
+	}
+
+	return hist_arr;
+	hist_arr.clear();
+}
+
+
+// Euler method for test efficiency
 void Cluster::euler() {
 	g_i.clear();
         double g_new = 0.0;
@@ -122,34 +158,4 @@ void Cluster::euler() {
                 Eg_sq.push_back (pow(Eg-g_i[j],2));
         var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
 
-}
-
-void Cluster::evol_dump(const char* name, double t, int bins, double g_min, double g_max) {
-	ofstream file;
-	file.open(name, ios::out|ios::app);
-
-	double g_step = (g_max-g_min)/bins;
-
-	for(int i=0; i<bins; i++) {
-		file << t << " " << g_min + g_step*i << " " << hist(g_i,bins,g_min,g_max)[i] << "\n";
-	}
-	file << "\n";
-
-	file.close();
-}
-
-vector<double> Cluster::hist(vector<double> gi, int bins, double g_min, double g_max) {
-	double g_step = (g_max-g_min)/bins;
-
-	vector<double> hist_arr (bins,0);
-
-	for(int k=0; k<bins; k++) {
-		for(int i=0; i<NTr; i++) {
-			if ( (gi[i]>(g_min + g_step*k)) && (gi[i]<=(g_min + g_step*(k+1))) )
-				hist_arr[k]+=1.0/gi.size();
-		}
-	}
-
-	return hist_arr;
-	hist_arr.clear();
 }
