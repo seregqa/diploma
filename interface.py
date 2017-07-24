@@ -2,6 +2,8 @@ from ker.Cluster import Cluster
 import numpy as np
 
 
+HIST_STEP = 0.1
+HIST_BINS = 200
 
 ###
 # params: Cluster(g0, a, b, c, D0, kT, h, NTr)
@@ -25,17 +27,22 @@ NTr = 1000
 #
 Time = 50
 h = 0.01
-
-
+#
+g_half_lim = HIST_STEP*HIST_BINS
+HIST_RANGE = np.linspace(g0-g_half_lim, g0+g_half_lim, HIST_BINS)
+#
 
 if __name__=="__main__":
 
     foo= Cluster(g0, a,b,c, D0,kT, h,NTr)
 
-    hist = np.array([])
+    hist2d = [ 0 for i in range( int(Time/h) ) ]
 
     for t in range(int(Time/h)):
-        hist = np.hstack( (hist, np.array(list(foo.g))) )
+
+        hist2d[t] = np.histogram( a=list(foo.g), 
+                                  bins=HIST_RANGE )[0]
+                
         if (t%10==0):
             foo.change_coefs()
             foo.traectories()
@@ -43,4 +50,9 @@ if __name__=="__main__":
             foo.traectories()
 
     # OUTPUT
-    print( hist.shape )
+    hist2d = np.array(hist2d)
+    print( hist2d.shape )    
+
+    with open('g_hist2d.txt', 'w') as f:
+        for h in hist2d:
+            f.write( ','.join( map(str,list(h)) ) )
