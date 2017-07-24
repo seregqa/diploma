@@ -30,7 +30,7 @@ h = 0.01
 #
 g_half_lim = HIST_STEP*HIST_BINS
 HIST_RANGE = np.linspace(g0-g_half_lim, g0+g_half_lim, HIST_BINS)
-#
+
 
 if __name__=="__main__":
 
@@ -56,3 +56,4 @@ if __name__=="__main__":
     with open('g_hist2d.txt', 'w') as f:
         for h in hist2d:
             f.write( ','.join( map(str,list(h)) ) )
+	    f.write( '\n' )
