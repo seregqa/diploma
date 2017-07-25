@@ -136,3 +136,6 @@ ENV/
 *.out
 *.app
 
+#SWIG obj files
+*.cxx
+
