@@ -46,6 +46,7 @@ class Cluster {
 		double phi, dphi, d2phi;
 		double D, dD, d2D;
 		vector<double> g;
+		vector< vector<double> > g_hist;
 
 		// вектор для хранения переменных для построения эволюции функции распределения
 		vector<double> g_i;

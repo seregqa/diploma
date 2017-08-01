@@ -24,8 +24,6 @@ Cluster::~Cluster() {
 	speed.clear();
 }
 
-// ! походу неверно пересчитываются функционал-коэффициенты (они должны зависеть от функции распределения по размерам
-// ! (мат ожидание размера на предыдущем шаге), а не от текущего размера)
 
 double Cluster::f_phi() { return -a*g_k + b*pow(g_k,2.0/3)*(1-pow(g_k,-1.0/3)/3) + c*pow(g_k,-1.0/3); }
 double Cluster::f_dphi() { return -a + b*(2.0/3*pow(g_k,-1.0/3)-1.0/9*pow(g_k,-2.0/3)) - c*(-1.0/3*pow(g_k,-4.0/3)); }
@@ -57,6 +55,10 @@ void Cluster::change_coefs() {
 	dD = f_dD();
 	d2D = f_d2D();
 }
+
+//vector<double> Cluster::hist() {
+//    g_min = g0
+//}
 
 void Cluster::leap() {
 	g_i.clear();
@@ -102,6 +104,9 @@ void Cluster::step_traectories() {
 	for(unsigned int j=0; j<g_i.size(); j++)
 		Eg_sq.push_back (pow(Eg-g_i[j],2));
 	var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
+
+
+    g_hist.push_back(hist(g_i))
 }
 
 

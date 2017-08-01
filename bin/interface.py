@@ -39,27 +39,14 @@ if __name__=="__main__":
 
     print(foo.g)
 
-
-'''
     hist2d = [ 0 for i in range( int(Time/h) ) ]
-
-    for t in range(int(Time/h)):
-
+    for t,hist in enumerate(list(foo.g_hist)):
         hist2d[t] = np.histogram( a=list(foo.g),
                                   bins=HIST_RANGE )[0]
-
-        if (t%10==0):
-            foo.change_coefs()
-            foo.traectories()
-        else:
-            foo.traectories()
-
-    # OUTPUT
-    hist2d = np.array(hist2d)
     print( hist2d.shape )
 
+    hist2d = np.array(hist2d)
     with open('g_hist2d.txt', 'w') as f:
         for h in hist2d:
             f.write( ','.join( map(str,list(h)) ) )
 	    f.write( '\n' )
-'''
