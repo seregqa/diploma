@@ -35,9 +35,9 @@ HIST_RANGE = np.linspace(g0-g_half_lim, g0+g_half_lim, HIST_BINS)
 if __name__=="__main__":
 
     foo= Cluster(g0, a,b,c, D0,kT, h,NTr, Time)
-    foo.time_loop(change_coefs_freq=5)
+    foo.time_loop()
 
-    print(foo.g)
+    print( list(foo.g) )
 
 
 '''

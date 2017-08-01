@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 
 Cluster::Cluster(double _g0, double _a, double _b, double _c,
-                 double _D0, double _kT, double _h, int _NTr)
+                 double _D0, double _kT, double _h, int _NTr, int _Time)
                 : g0(_g0), a(_a), b(_b), c(_c),
                   D0(_D0), kT(_kT), h(_h), NTr(_NTr), Time(_Time)
 {
@@ -12,9 +12,10 @@ Cluster::Cluster(double _g0, double _a, double _b, double _c,
     var.push_back (0.0);
     speed.push_back (0.0);
 
-	phi=dphi=d2phi=D=dD=d2D = 0.0;
-	g_k = 0.0;
-	q = 1.0;
+    phi=dphi=d2phi=D=dD=d2D = 0.0;
+    g_k = 0.0;
+    q = 1.0;
+    change_coefs_freq = 2;
 }
 
 Cluster::~Cluster() {
@@ -81,7 +82,7 @@ void Cluster::leap() {
 	for(unsigned int j=0; j<g_i.size(); j++)
 		Eg_sq.push_back (pow(Eg-g_i[j],2));
 		var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
-	}
+}
 
 void Cluster::step_traectories() {
 	g_i.clear();
@@ -105,14 +106,14 @@ void Cluster::step_traectories() {
 }
 
 
-void time_loop(change_coefs_freq) {
+void Cluster::time_loop() {
     for(int t=0; t<Time; t++) {
         if (t%change_coefs_freq==0) {
-            change_coefs()
-            step_traectories()
+            change_coefs();
+            step_traectories();
         }
         else {
-            step_traectories()
+            step_traectories();
         }
     }
 }

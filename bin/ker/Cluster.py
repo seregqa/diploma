@@ -169,11 +169,9 @@ class Cluster(_object):
     def f_dsigma(self): return _Cluster.Cluster_f_dsigma(self)
     def ksi(self): return _Cluster.Cluster_ksi(self)
     def change_coefs(self): return _Cluster.Cluster_change_coefs(self)
-    def traectories(self): return _Cluster.Cluster_traectories(self)
+    def step_traectories(self): return _Cluster.Cluster_step_traectories(self)
     def leap(self): return _Cluster.Cluster_leap(self)
-    def euler(self): return _Cluster.Cluster_euler(self)
-    def data_dump(self, *args): return _Cluster.Cluster_data_dump(self, *args)
-    def hist(self, *args): return _Cluster.Cluster_hist(self, *args)
+    def time_loop(self): return _Cluster.Cluster_time_loop(self)
     __swig_setmethods__["phi"] = _Cluster.Cluster_phi_set
     __swig_getmethods__["phi"] = _Cluster.Cluster_phi_get
     if _newclass:phi = _swig_property(_Cluster.Cluster_phi_get, _Cluster.Cluster_phi_set)
@@ -231,9 +229,15 @@ class Cluster(_object):
     __swig_setmethods__["NTr"] = _Cluster.Cluster_NTr_set
     __swig_getmethods__["NTr"] = _Cluster.Cluster_NTr_get
     if _newclass:NTr = _swig_property(_Cluster.Cluster_NTr_get, _Cluster.Cluster_NTr_set)
+    __swig_setmethods__["Time"] = _Cluster.Cluster_Time_set
+    __swig_getmethods__["Time"] = _Cluster.Cluster_Time_get
+    if _newclass:Time = _swig_property(_Cluster.Cluster_Time_get, _Cluster.Cluster_Time_set)
     __swig_setmethods__["q"] = _Cluster.Cluster_q_set
     __swig_getmethods__["q"] = _Cluster.Cluster_q_get
     if _newclass:q = _swig_property(_Cluster.Cluster_q_get, _Cluster.Cluster_q_set)
+    __swig_setmethods__["change_coefs_freq"] = _Cluster.Cluster_change_coefs_freq_set
+    __swig_getmethods__["change_coefs_freq"] = _Cluster.Cluster_change_coefs_freq_get
+    if _newclass:change_coefs_freq = _swig_property(_Cluster.Cluster_change_coefs_freq_get, _Cluster.Cluster_change_coefs_freq_set)
 Cluster_swigregister = _Cluster.Cluster_swigregister
 Cluster_swigregister(Cluster)
 
