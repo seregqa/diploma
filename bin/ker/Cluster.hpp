@@ -16,7 +16,8 @@ class Cluster {
 			double _D0,
 			double _kT,
 			double _h,
-			int _NTr
+			int _NTr,
+			int _Time,
 		);
 
 		~Cluster();
@@ -35,17 +36,12 @@ class Cluster {
 		double ksi();
 
 		void change_coefs();
-		void traectories();
+		void step_traectories();
 		void leap();
 
-		// схема эйлера для сравнения устойчивости
-		void euler();
+		void time_loop();
 
-		void data_dump(const char* name, double t, int bins, double g_min, double g_max);
-		vector<double> hist(vector<double> g, int bins, double g_min, double g_max);
-
-
-//	private:
+	private:
 		// переменные, в которых будут храниться значения функционал-коэффициентов
 		double phi, dphi, d2phi;
 		double D, dD, d2D;
@@ -59,5 +55,5 @@ class Cluster {
 		// коэффициенты для диффузии и Гиббса
 		double g0, a, b, c, D0, kT;
 		// текущее значение g; шаг по времени; кол-во траекторий; интенсивность белого шума
-		double g_k, h, NTr, q;
+		double g_k, h, NTr, Time, q;
 };

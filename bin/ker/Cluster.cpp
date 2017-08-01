@@ -5,7 +5,7 @@
 Cluster::Cluster(double _g0, double _a, double _b, double _c,
                  double _D0, double _kT, double _h, int _NTr)
                 : g0(_g0), a(_a), b(_b), c(_c),
-                  D0(_D0), kT(_kT), h(_h), NTr(_NTr)
+                  D0(_D0), kT(_kT), h(_h), NTr(_NTr), Time(_Time)
 {
     g.push_back (g0);
     g_i = vector<double> (NTr, g.back());
@@ -46,6 +46,7 @@ double Cluster::ksi() {
 	return sqrt(-2*log(dis(gen)))*cos(2*M_PI*dis(gen));
 }
 
+
 void Cluster::change_coefs() {
 	g_k = g.back();
 
@@ -82,7 +83,7 @@ void Cluster::leap() {
 		var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
 	}
 
-void Cluster::traectories() {
+void Cluster::step_traectories() {
 	g_i.clear();
 	double g_new = 0.0;
 
@@ -104,58 +105,14 @@ void Cluster::traectories() {
 }
 
 
-void Cluster::data_dump(const char* name, double t, int bins, double g_min, double g_max) {
-	ofstream file;
-	file.open(name, ios::out|ios::app);
-
-	double g_step = (g_max-g_min)/bins;
-
-	for(int i=0; i<bins; i++) {
-		file << t << " " << g_min + g_step*i << " " << hist(g_i,bins,g_min,g_max)[i] << "\n";
-	}
-	file << "\n";
-
-	file.close();
-}
-
-
-// Data for plot histogram
-vector<double> Cluster::hist(vector<double> gi, int bins, double g_min, double g_max) {
-	double g_step = (g_max-g_min)/bins;
-
-	vector<double> hist_arr (bins,0);
-
-	for(int k=0; k<bins; k++) {
-		for(int i=0; i<NTr; i++) {
-			if ( (gi[i]>(g_min + g_step*k)) && (gi[i]<=(g_min + g_step*(k+1))) )
-				hist_arr[k]+=1.0/gi.size();
-		}
-	}
-
-	return hist_arr;
-	hist_arr.clear();
-}
-
-
-// Euler method for test efficiency
-void Cluster::euler() {
-	g_i.clear();
-        double g_new = 0.0;
-
-        double Eg = 0.0;
-
-        g_k = g.back();
-        for(int i=0; i<NTr; i++) {
-                g_new = g_k + h*f_H() + sqrt(h)*f_sigma()*ksi() ;
-                g_i.push_back (g_new);
+void time_loop(change_coefs_freq) {
+    for(int t=0; t<Time; t++) {
+        if (t%change_coefs_freq==0) {
+            change_coefs()
+            step_traectories()
         }
-        Eg = accumulate(g_i.begin(), g_i.end(), 0.0)/NTr;
-        speed.push_back (Eg-g.back());
-        g.push_back (Eg);
-
-        vector<double> Eg_sq;
-        for(unsigned int j=0; j<g_i.size(); j++)
-                Eg_sq.push_back (pow(Eg-g_i[j],2));
-        var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
-
+        else {
+            step_traectories()
+        }
+    }
 }
