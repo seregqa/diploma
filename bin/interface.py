@@ -22,7 +22,7 @@ HIST_BINS = 200
 g0 = 274
 a, b, c = 0.24318, 2.366613, 25.
 D0, kT = 0.25, 1.5
-NTr = 1000000
+NTr = 10000
 
 #
 Time = 50
@@ -37,29 +37,18 @@ if __name__=="__main__":
     foo= Cluster(g0, a,b,c, D0,kT, h,NTr, Time)
     foo.time_loop()
 
-    print( list(foo.g) )
-
-
-'''
-    hist2d = [ 0 for i in range( int(Time/h) ) ]
-
-    for t in range(int(Time/h)):
-
-        hist2d[t] = np.histogram( a=list(foo.g),
-                                  bins=HIST_RANGE )[0]
-
-        if (t%10==0):
-            foo.change_coefs()
-            foo.traectories()
-        else:
-            foo.traectories()
-
-    # OUTPUT
-    hist2d = np.array(hist2d)
-    print( hist2d.shape )
-
+    #print( list(foo.g_hist) )
+    
+    hist2d = []
+    for t,hist in enumerate(list(foo.g_hist)):
+        #print(t)
+        #print(np.histogram( a=hist, bins=HIST_RANGE ))
+        hist2d.append( np.histogram( a=hist,
+                                  bins=HIST_RANGE )[0] )
+    
+    #hist2d = np.array(hist2d)
     with open('g_hist2d.txt', 'w') as f:
         for h in hist2d:
-            f.write( ','.join( map(str,list(h)) ) )
-	    f.write( '\n' )
-'''
+            print(h)
+            f.write( ','.join( map(str, h) ) )
+        f.write( '\n' )    

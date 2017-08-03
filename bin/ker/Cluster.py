@@ -145,6 +145,53 @@ class DoubleVector(_object):
 DoubleVector_swigregister = _Cluster.DoubleVector_swigregister
 DoubleVector_swigregister(DoubleVector)
 
+class DoubleVector2d(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, DoubleVector2d, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, DoubleVector2d, name)
+    __repr__ = _swig_repr
+    def iterator(self): return _Cluster.DoubleVector2d_iterator(self)
+    def __iter__(self): return self.iterator()
+    def __nonzero__(self): return _Cluster.DoubleVector2d___nonzero__(self)
+    def __bool__(self): return _Cluster.DoubleVector2d___bool__(self)
+    def __len__(self): return _Cluster.DoubleVector2d___len__(self)
+    def pop(self): return _Cluster.DoubleVector2d_pop(self)
+    def __getslice__(self, *args): return _Cluster.DoubleVector2d___getslice__(self, *args)
+    def __setslice__(self, *args): return _Cluster.DoubleVector2d___setslice__(self, *args)
+    def __delslice__(self, *args): return _Cluster.DoubleVector2d___delslice__(self, *args)
+    def __delitem__(self, *args): return _Cluster.DoubleVector2d___delitem__(self, *args)
+    def __getitem__(self, *args): return _Cluster.DoubleVector2d___getitem__(self, *args)
+    def __setitem__(self, *args): return _Cluster.DoubleVector2d___setitem__(self, *args)
+    def append(self, *args): return _Cluster.DoubleVector2d_append(self, *args)
+    def empty(self): return _Cluster.DoubleVector2d_empty(self)
+    def size(self): return _Cluster.DoubleVector2d_size(self)
+    def clear(self): return _Cluster.DoubleVector2d_clear(self)
+    def swap(self, *args): return _Cluster.DoubleVector2d_swap(self, *args)
+    def get_allocator(self): return _Cluster.DoubleVector2d_get_allocator(self)
+    def begin(self): return _Cluster.DoubleVector2d_begin(self)
+    def end(self): return _Cluster.DoubleVector2d_end(self)
+    def rbegin(self): return _Cluster.DoubleVector2d_rbegin(self)
+    def rend(self): return _Cluster.DoubleVector2d_rend(self)
+    def pop_back(self): return _Cluster.DoubleVector2d_pop_back(self)
+    def erase(self, *args): return _Cluster.DoubleVector2d_erase(self, *args)
+    def __init__(self, *args): 
+        this = _Cluster.new_DoubleVector2d(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def push_back(self, *args): return _Cluster.DoubleVector2d_push_back(self, *args)
+    def front(self): return _Cluster.DoubleVector2d_front(self)
+    def back(self): return _Cluster.DoubleVector2d_back(self)
+    def assign(self, *args): return _Cluster.DoubleVector2d_assign(self, *args)
+    def resize(self, *args): return _Cluster.DoubleVector2d_resize(self, *args)
+    def insert(self, *args): return _Cluster.DoubleVector2d_insert(self, *args)
+    def reserve(self, *args): return _Cluster.DoubleVector2d_reserve(self, *args)
+    def capacity(self): return _Cluster.DoubleVector2d_capacity(self)
+    __swig_destroy__ = _Cluster.delete_DoubleVector2d
+    __del__ = lambda self : None;
+DoubleVector2d_swigregister = _Cluster.DoubleVector2d_swigregister
+DoubleVector2d_swigregister(DoubleVector2d)
+
 class Cluster(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Cluster, name, value)
@@ -193,6 +240,9 @@ class Cluster(_object):
     __swig_setmethods__["g"] = _Cluster.Cluster_g_set
     __swig_getmethods__["g"] = _Cluster.Cluster_g_get
     if _newclass:g = _swig_property(_Cluster.Cluster_g_get, _Cluster.Cluster_g_set)
+    __swig_setmethods__["g_hist"] = _Cluster.Cluster_g_hist_set
+    __swig_getmethods__["g_hist"] = _Cluster.Cluster_g_hist_get
+    if _newclass:g_hist = _swig_property(_Cluster.Cluster_g_hist_get, _Cluster.Cluster_g_hist_set)
     __swig_setmethods__["g_i"] = _Cluster.Cluster_g_i_set
     __swig_getmethods__["g_i"] = _Cluster.Cluster_g_i_get
     if _newclass:g_i = _swig_property(_Cluster.Cluster_g_i_get, _Cluster.Cluster_g_i_set)

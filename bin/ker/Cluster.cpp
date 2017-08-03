@@ -9,6 +9,7 @@ Cluster::Cluster(double _g0, double _a, double _b, double _c,
 {
     g.push_back (g0);
     g_i = vector<double> (NTr, g.back());
+    g_hist.push_back( vector<double> (100, 0.0) );
     var.push_back (0.0);
     speed.push_back (0.0);
 
@@ -19,10 +20,10 @@ Cluster::Cluster(double _g0, double _a, double _b, double _c,
 }
 
 Cluster::~Cluster() {
-	g.clear();
-	g_i.clear();
-	var.clear();
-	speed.clear();
+    g.clear();
+    g_i.clear();
+    var.clear();
+    speed.clear();
 }
 
 // ! походу неверно пересчитываются функционал-коэффициенты (они должны зависеть от функции распределения по размерам
@@ -93,16 +94,18 @@ void Cluster::step_traectories() {
 	g_k = g.back();
 	for(int i=0; i<NTr; i++) {
 		g_new = g_k + 1.0/(1.0-h/2*f_dH())*(h*f_H()+sqrt(h)*f_sigma()*ksi()+h/2*f_dsigma()*f_sigma()*ksi());
-		g_i.push_back (g_new);
+		g_i.push_back(g_new);
 	}
 	Eg = accumulate(g_i.begin(), g_i.end(), 0.0)/NTr;
-	speed.push_back (Eg-g.back());
-	g.push_back (Eg);
+	speed.push_back(Eg-g.back());
+	g.push_back(Eg);
 
 	vector<double> Eg_sq;
 	for(unsigned int j=0; j<g_i.size(); j++)
 		Eg_sq.push_back (pow(Eg-g_i[j],2));
-	var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
+	var.push_back(accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
+
+        g_hist.push_back(g_i);
 }
 
 
