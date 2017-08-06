@@ -19,8 +19,8 @@ HIST_BINS = 200
 ###
 
 
-g0 = 274
-a, b, c = 0.24318, 2.366613, 25.
+g0 = 100
+a, b, c = 0.24318, 2.366613, 0.
 D0, kT = 0.25, 1.5
 NTr = 10000
 
@@ -49,6 +49,6 @@ if __name__=="__main__":
     #hist2d = np.array(hist2d)
     with open('g_hist2d.txt', 'w') as f:
         for h in hist2d:
-            print(h)
+            #print(h)
             f.write( ','.join( map(str, h) ) )
-        f.write( '\n' )    
+            f.write( '\n' )    
