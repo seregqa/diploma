@@ -3,25 +3,27 @@
 #define _USE_MATH_DEFINES
 
 Cluster::Cluster(double _g0, double _a, double _b, double _c,
-                 double _D0, double _kT, double _h, int _NTr)
+                 double _D0, double _kT, double _h, int _NTr, int _Time)
                 : g0(_g0), a(_a), b(_b), c(_c),
                   D0(_D0), kT(_kT), h(_h), NTr(_NTr), Time(_Time)
 {
     g.push_back (g0);
     g_i = vector<double> (NTr, g.back());
+    g_hist.push_back( vector<double> (100, 0.0) );
     var.push_back (0.0);
     speed.push_back (0.0);
 
-	phi=dphi=d2phi=D=dD=d2D = 0.0;
-	g_k = 0.0;
-	q = 1.0;
+    phi=dphi=d2phi=D=dD=d2D = 0.0;
+    g_k = 0.0;
+    q = 1.0;
+    change_coefs_freq = 2;
 }
 
 Cluster::~Cluster() {
-	g.clear();
-	g_i.clear();
-	var.clear();
-	speed.clear();
+    g.clear();
+    g_i.clear();
+    var.clear();
+    speed.clear();
 }
 
 
@@ -83,7 +85,7 @@ void Cluster::leap() {
 	for(unsigned int j=0; j<g_i.size(); j++)
 		Eg_sq.push_back (pow(Eg-g_i[j],2));
 		var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
-	}
+}
 
 void Cluster::step_traectories() {
 	g_i.clear();
@@ -94,30 +96,29 @@ void Cluster::step_traectories() {
 	g_k = g.back();
 	for(int i=0; i<NTr; i++) {
 		g_new = g_k + 1.0/(1.0-h/2*f_dH())*(h*f_H()+sqrt(h)*f_sigma()*ksi()+h/2*f_dsigma()*f_sigma()*ksi());
-		g_i.push_back (g_new);
+		g_i.push_back(g_new);
 	}
 	Eg = accumulate(g_i.begin(), g_i.end(), 0.0)/NTr;
-	speed.push_back (Eg-g.back());
-	g.push_back (Eg);
+	speed.push_back(Eg-g.back());
+	g.push_back(Eg);
 
 	vector<double> Eg_sq;
 	for(unsigned int j=0; j<g_i.size(); j++)
 		Eg_sq.push_back (pow(Eg-g_i[j],2));
-	var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
+	var.push_back(accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
 
-
-    g_hist.push_back(hist(g_i))
+        g_hist.push_back(g_i);
 }
 
 
-void time_loop(change_coefs_freq) {
+void Cluster::time_loop() {
     for(int t=0; t<Time; t++) {
         if (t%change_coefs_freq==0) {
-            change_coefs()
-            step_traectories()
+            change_coefs();
+            step_traectories();
         }
         else {
-            step_traectories()
+            step_traectories();
         }
     }
 }

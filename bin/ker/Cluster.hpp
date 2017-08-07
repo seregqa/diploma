@@ -17,7 +17,7 @@ class Cluster {
 			double _kT,
 			double _h,
 			int _NTr,
-			int _Time,
+			int _Time
 		);
 
 		~Cluster();
@@ -41,11 +41,12 @@ class Cluster {
 
 		void time_loop();
 
-	private:
+	//private:
 		// переменные, в которых будут храниться значения функционал-коэффициентов
 		double phi, dphi, d2phi;
 		double D, dD, d2D;
 		vector<double> g;
+
 		vector< vector<double> > g_hist;
 
 		// вектор для хранения переменных для построения эволюции функции распределения
@@ -57,4 +58,5 @@ class Cluster {
 		double g0, a, b, c, D0, kT;
 		// текущее значение g; шаг по времени; кол-во траекторий; интенсивность белого шума
 		double g_k, h, NTr, Time, q;
+                int change_coefs_freq;
 };

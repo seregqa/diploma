@@ -19,10 +19,10 @@ HIST_BINS = 200
 ###
 
 
-g0 = 274
-a, b, c = 0.24318, 2.366613, 25.
+g0 = 100
+a, b, c = 0.24318, 2.366613, 0.
 D0, kT = 0.25, 1.5
-NTr = 1000000
+NTr = 10000
 
 #
 Time = 50
@@ -35,18 +35,21 @@ HIST_RANGE = np.linspace(g0-g_half_lim, g0+g_half_lim, HIST_BINS)
 if __name__=="__main__":
 
     foo= Cluster(g0, a,b,c, D0,kT, h,NTr, Time)
-    foo.time_loop(change_coefs_freq=5)
 
-    print(foo.g)
+    foo.time_loop()
 
-    hist2d = [ 0 for i in range( int(Time/h) ) ]
+    #print( list(foo.g_hist) )
+    
+    hist2d = []
     for t,hist in enumerate(list(foo.g_hist)):
-        hist2d[t] = np.histogram( a=list(foo.g),
-                                  bins=HIST_RANGE )[0]
-    print( hist2d.shape )
-
-    hist2d = np.array(hist2d)
+        #print(t)
+        #print(np.histogram( a=hist, bins=HIST_RANGE ))
+        hist2d.append( np.histogram( a=hist,
+                                  bins=HIST_RANGE )[0] )
+    
+    #hist2d = np.array(hist2d)
     with open('g_hist2d.txt', 'w') as f:
         for h in hist2d:
-            f.write( ','.join( map(str,list(h)) ) )
-	    f.write( '\n' )
+            #print(h)
+            f.write( ','.join( map(str, h) ) )
+            f.write( '\n' )
