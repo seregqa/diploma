@@ -2,8 +2,8 @@ from ker.Cluster import Cluster
 import numpy as np
 
 
-HIST_STEP = 0.1
-HIST_BINS = 200
+#HIST_STEP = 0.1
+#HIST_BINS = 200
 
 ###
 # params: Cluster(g0, a, b, c, D0, kT, h, NTr)
@@ -28,8 +28,9 @@ NTr = 100000
 Time = 50
 h = 0.05
 #
-g_half_lim = HIST_STEP*HIST_BINS
-HIST_RANGE = np.linspace(g0-g_half_lim, g0+g_half_lim, HIST_BINS)
+
+#g_half_lim = HIST_STEP*HIST_BINS
+#HIST_RANGE = np.linspace(g0-g_half_lim, g0+g_half_lim, HIST_BINS)
 
 
 if __name__=="__main__":

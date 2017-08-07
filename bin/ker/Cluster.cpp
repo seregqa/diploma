@@ -14,7 +14,7 @@ Cluster::Cluster(double _g0, double _a, double _b, double _c,
     speed.push_back (0.0);
 
     phi=dphi=d2phi=D=dD=d2D = 0.0;
-    g_k = 0.0;
+    g_k = 0.0
     q = 1.0;
     change_coefs_freq = 2;
 }
