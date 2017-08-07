@@ -22,7 +22,7 @@ HIST_BINS = 200
 g0 = 100
 a, b, c = 0.24318, 2.366613, 0.
 D0, kT = 0.25, 1.5
-NTr = 10000
+NTr = 100000
 
 #
 Time = 50
@@ -37,19 +37,11 @@ if __name__=="__main__":
     foo= Cluster(g0, a,b,c, D0,kT, h,NTr, Time)
 
     foo.time_loop()
-
-    #print( list(foo.g_hist) )
     
-    hist2d = []
-    for t,hist in enumerate(list(foo.g_hist)):
-        #print(t)
-        #print(np.histogram( a=hist, bins=HIST_RANGE ))
-        hist2d.append( np.histogram( a=hist,
-                                  bins=HIST_RANGE )[0] )
     
-    #hist2d = np.array(hist2d)
-    with open('g_hist2d.txt', 'w') as f:
-        for h in hist2d:
-            #print(h)
-            f.write( ','.join( map(str, h) ) )
-            f.write( '\n' )
+    with open('./plot_data/g_hist.txt', 'w') as f1:
+        for g_i in list(foo.g_hist):
+            f1.write( ','.join( map(str, g_i) ) )
+            f1.write( '\n' )
+    with open('./plot_data/g.txt', 'w') as f2:
+        f2.write( ','.join( map(str, list(foo.g)) ) )
