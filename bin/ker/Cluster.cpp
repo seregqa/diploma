@@ -9,12 +9,11 @@ Cluster::Cluster(double _g0, double _a, double _b, double _c,
 {
     g.push_back (g0);
     g_i = vector<double> (NTr, g.back());
-    g_hist.push_back( vector<double> (100, 0.0) );
     var.push_back (0.0);
     speed.push_back (0.0);
 
     phi=dphi=d2phi=D=dD=d2D = 0.0;
-    g_k = 0.0
+    g_k = 0.0;
     q = 1.0;
     change_coefs_freq = 2;
 }
@@ -82,12 +81,13 @@ void Cluster::leap() {
 	g.push_back (Eg);
 
 	vector<double> Eg_sq;
-	for(unsigned int j=0; j<g_i.size(); j++)
-		Eg_sq.push_back (pow(Eg-g_i[j],2));
-		var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
+	for(unsigned int j=0; j<g_i.size(); j++) {
+	    Eg_sq.push_back (pow(Eg-g_i[j],2));
+	}
+	var.push_back (accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
 }
 
-void Cluster::step_traectories() {
+void Cluster::run_traectories() {
 	g_i.clear();
 	double g_new = 0.0;
 
@@ -95,30 +95,28 @@ void Cluster::step_traectories() {
 
 	g_k = g.back();
 	for(int i=0; i<NTr; i++) {
-		g_new = g_k + 1.0/(1.0-h/2*f_dH())*(h*f_H()+sqrt(h)*f_sigma()*ksi()+h/2*f_dsigma()*f_sigma()*ksi());
+	    for(int t=0; t<Time; t++) {	
+		if(t%change_coefs_freq==0) {
+		    change_coefs();
+		    g_new = g_k + 1.0/(1.0-h/2*f_dH())*(h*f_H()+sqrt(h)*f_sigma()*ksi()+h/2*f_dsigma()*f_sigma()*ksi());
+		}
+		else {
+		    g_new = g_k + 1.0/(1.0-h/2*f_dH())*(h*f_H()+sqrt(h)*f_sigma()*ksi()+h/2*f_dsigma()*f_sigma()*ksi());
+		}
 		g_i.push_back(g_new);
-	}
-	Eg = accumulate(g_i.begin(), g_i.end(), 0.0)/NTr;
-	speed.push_back(Eg-g.back());
-	g.push_back(Eg);
+	
+	    }
+	    g_traectories.push_back(g_i);
+	
+	    Eg = accumulate(g_i.begin(), g_i.end(), 0.0)/NTr;
+	    speed.push_back(Eg-g.back());
+	    g.push_back(Eg);
 
-	vector<double> Eg_sq;
-	for(unsigned int j=0; j<g_i.size(); j++)
+	    vector<double> Eg_sq;
+	    for(unsigned int j=0; j<g_i.size(); j++)
 		Eg_sq.push_back (pow(Eg-g_i[j],2));
-	var.push_back(accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
+	    var.push_back(accumulate(Eg_sq.begin(),Eg_sq.end(),0.0)/NTr);
 
-        g_hist.push_back(g_i);
+	}
 }
 
-
-void Cluster::time_loop() {
-    for(int t=0; t<Time; t++) {
-        if (t%change_coefs_freq==0) {
-            change_coefs();
-            step_traectories();
-        }
-        else {
-            step_traectories();
-        }
-    }
-}

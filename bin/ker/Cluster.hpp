@@ -36,10 +36,8 @@ class Cluster {
 		double ksi();
 
 		void change_coefs();
-		void step_traectories();
+		void run_traectories();
 		void leap();
-
-		void time_loop();
 
 	//private:
 		// переменные, в которых будут храниться значения функционал-коэффициентов
@@ -47,8 +45,8 @@ class Cluster {
 		double D, dD, d2D;
 		vector<double> g;
 
-		vector< vector<double> > g_hist;
-
+                vector< vector<double> > g_traectories;
+                
 		// вектор для хранения переменных для построения эволюции функции распределения
 		vector<double> g_i;
 		vector<double> var;
